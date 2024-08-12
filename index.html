@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>APL</title>
+    <link rel="icon" type="image/x-icon" href="./images/APL_LOGO1.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+       @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-card {
+            background-color: #001f3f; /* Navy blue color */
+            color: #ffffff;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            width: 100%; /* Let Bootstrap handle the width */
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(36, 11, 72, 0.2);
+            opacity: 0; /* Initially hidden for animation */
+            transform: translateY(20px);
+            animation: cardEnter 1s forwards;
+            animation-delay: 0s; /* Default delay for the animation */
+        }
+
+        .team-card img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            background-color: #001f3f; /* Background color for visibility */
+            padding: 10px; /* Padding for better fit */
+        }
+
+        body {
+            background-color: white;
+            color: #0b0b0b;
+            font-family: 'Arial', sans-serif;
+        }
+        .team-section {
+            padding: 60px 0;
+        }
+        .team-section h2 {
+            margin-bottom: 40px;
+            font-weight: bold;
+            color: #02042e;
+        }
+        .hero-section {
+            position: relative;
+            background: #02042e;
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+        }
+
+        .highlights-section h3 {
+            margin-bottom: 40px;
+            font-weight: bold;
+            color: #0d023e;
+            text-align: center;
+        }
+        .highlight-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+        .highlight-item {
+            max-width: 250px;
+            width: 100%;
+            text-align: center;
+        }
+        .highlight-item video {
+            max-width: 100%;
+            height: auto;
+            background-color: #000;
+        }
+        @media (max-width: 768px) {
+            .highlight-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .highlight-item {
+                max-width: 100%;
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 20px 0;
+            }
+            .highlights-section {
+                padding: 20px 0;
+            }
+            .highlight-item {
+                width: 90%;
+            }
+        }
+
+        .demo-row {
+            background-color: #0a0530;
+            padding: 50px 0;
+        }
+
+        /* Implement */
+        .sponsor-feature {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            overflow: hidden;
+        }
+
+        .sponsor-feature img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        #id-sponsors .carousel {
+            margin-bottom: 20px;
+        }
+
+        #id-sponsors .carousel-indicators {
+            bottom: -25px;
+        }
+
+        /* Custom styles for carousel controls */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: navy;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-image: none;
+        }
+
+        .carousel-control-prev-icon::before,
+        .carousel-control-next-icon::before {
+            font-size: 20px;
+            color: white;
+        }
+
+        .carousel-control-prev-icon {
+            background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path fill="white" d="M4.707 7.707a1 1 0 0 0 0-1.414L2.414 4.5l2.293-2.293A1 1 0 1 0 3.293.293L.586 3a1 1 0 0 0 0 1.414l2.707 2.707A1 1 0 0 0 4.707 7.707z"/></svg>');
+        }
+
+        .carousel-control-next-icon {
+            background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path fill="white" d="M3.293 7.707a1 1 0 0 1 0-1.414L5.586 4.5 3.293 2.207A1 1 0 0 1 4.707.293L7.414 3a1 1 0 0 1 0 1.414L4.707 7.707A1 1 0 0 1 3.293 7.707z"/></svg>');
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .sponsor-feature {
+                height: 120px;
+                width: 120px;
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 768px) {
+            .sponsor-feature {
+                height: 150px;
+                width: 150px;
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .sponsor-feature {
+                height: 180px;
+                width: 180px;
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .description {
+    background-color: #001f3f;
+    margin-top: 20px;
+   position: absolute;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: bolder;
+    /* Optional: Add a separator line at the top of the description */
+}
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container-fluids">
+        <!-- TopHeader -->
+        <div class="container-fluids uppernavbar d-none d-md-block">
+            <div class="row">
+              <div class="col-4">
+                <div class="row">
+                    <div class="col-12 mt-2 mb-1 d-flex align-items-center">
+                       <a href="https://arunachalcricket.in/"><img src="./images/organiserlogo.jpg" alt="" class="img-fluid max-height1 rounded-circle ms-5"></a> 
+                        <div class="vertical-line mx-1"></div>
+                         <a href=""><img src="./images/APL_LOGO1.png" alt="" class="img-fluid max-height  ms-2"></a>
+                    </div>
+                </div>
+            </div>
+                <div class="col-8 mt-3">
+                  <div class="d-flex justify-content-end align-items-center social-media-icons pe-3">
+                      <span class="ms-3 p-3">
+                          <b class="text-white">Follow Us</b>
+                      </span>
+                      <span class="ms-3 p-2">
+                          <a href="https://www.facebook.com/Arunachalca/" target="_blank">
+                              <i class="fab fa-facebook iconsfb"></i>
+                          </a>
+                      </span>
+                      <span class="ms-3">
+                          <a href="https://www.instagram.com/aplt20_arunachalpremierleague/" target="_blank">
+                              <i class="fa-brands fa-square-instagram"></i>
+                          </a>
+                      </span>
+                      <span class="ms-3">
+                          <a href="https://twitter.com/" target="_blank">
+                              <i class="fa-brands fa-square-twitter"></i>
+                          </a>
+                      </span>
+                      <span class="ms-3">
+                          <a href="https://www.youtube.com/embed/7Pm7O-wA1jw?si=eapZzM6WdWN2jWe8" target="_blank">
+                              <i class="fa-brands fa-square-youtube"></i>
+                          </a>
+                      </span>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <!-- Top Header For Mobile View -->
+        <div class="container-fluids uppernavbar d-md-none">
+          <div class="row">
+              <div class="col-12">
+                  <div class="d-flex justify-content-center align-items-center social-media-icons">
+                      <span class="ms-3 p-3">
+                          <b class="text-white">Follow Us At</b>
+                      </span>
+                      <span class="ms-3 p-2">
+                          <a href="https://www.facebook.com/Arunachalca/
+                          " target="_blank">
+                              <i class="fab fa-facebook iconsfb"></i>
+                          </a>
+                      </span>
+                      <span class="ms-3">
+                          <a href="https://www.instagram.com/aplt20_arunachalpremierleague/
+                          " target="_blank">
+                              <i class="fa-brands fa-square-instagram"></i>
+                          </a>
+                      </span>
+                      <span class="ms-3">
+                          <a href="https://twitter.com/" target="_blank">
+                              <i class="fa-brands fa-square-twitter"></i>
+                          </a>
+                      </span>
+                      <span class="ms-3">
+                          <a href="https://www.youtube.com/embed/7Pm7O-wA1jw?si=eapZzM6WdWN2jWe8" target="_blank">
+                              <i class="fa-brands fa-square-youtube"></i>
+                          </a>
+                      </span>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <!-- Bottom Navbar -->
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+              <a class="navbar-brand" href="./index.html">
+                <img src="./images/APL_LOGO1.png" alt="Logo" class="logo img-fluid w-50 h-20" />
+              </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-stream manueIcon" id="manuIcon"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="./index.html">HOME</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="./about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./gallery.html">GALLERY </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./team.html">TEAM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./news.html">NEWS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./contact.html">CONTACT US</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./fixture.html">FIXTURES</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="./scoreboard.html">SCOREBOARD</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- crausel of Home Page -->
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./images/banner4.gif" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/bannerhead.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/banner2.jpg" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- Welcome Home Page Line above SM SCREEN -->
+        <div class="container-fluids m-2">
+            <h1 style="color: #041b33; font-weight: 900; font-size: 40px " class="text-center d-none d-sm-block p-2 ">WELCOME TO APLT20 </h1>
+        </div>
+        <!-- Welcome Home Page Line below SM SCREEN -->
+        <div class="container-fluids m-2">
+          <h1 style="color: #041b33; font-weight: 900; font-size: 30px " class="text-center d-block d-sm-none p-2 ">WELCOME TO APLT20 </h1>
+       </div>
+       <div class="container">
+        <div class="row align-items-center">
+            <div class="col-sm-12 col-md-7" style="font-size: 20px; color: #041b33;">
+                <p style="text-align: justify;">
+                    The Arunachal Cricket Association(ARCA) affiliated under The Board of cricket Control in India(BCCI) is organizing a T20 Premier tournament The Arunachal Premier League(APL) season 02(The reboot edition) is approved by The BCCI, starting form 18th Aug 2024 Players’ performance in APL will count much in the selection for BCCI Domestic season tournaments. 
+ 
+The Arunachal Cricket Association (ARCA) is pleased to announce the commencement of the
+second season of the Arunachal Premier League (APL). This highly anticipated cricket tournament will begin on 1st September in Greater Noida, Uttar Pradesh. 
+ 
+ARCA has signed an MOU with JH sports industries to professionally manage the APL-2 as per the guidelines of the BCCI for such tournaments.
+                </p>
+                <a href="./about.html">
+                    <button type="button" class="btn custom-btn" >
+                        Read More
+                    </button>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <img src="./images/welcome_final.jpg" alt="" class="img-fluid ml-lg-custom " style="max-height: 400px;">
+            </div> 
+        </div>
+    </div>
+
+    <div class="container team-section text-center">
+        <h2 class="display-4">Our Teams</h2>
+        <!-- Team Cards -->
+        <div class="row" id="team-card-container">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-card" id="card1">
+                    <img src="./images/Dirang_dragons_remove bg.png" alt="Dirang Dragons Logo">
+                    <div class="description">
+                        <p>THE SQUAD IS COMING SOON</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-card" id="card2">
+                    <img src="./images/pare_warriors-removebg.png" alt="Pare Warriors Logo">
+                    <div class="description">
+                        <p>THE SQUAD IS COMING SOON</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-card" id="card3">
+                    <img src="./images/kameng_strikes-removebg.png" alt="Kameng Strikes Logo">
+                    <div class="description">
+                        <p>THE SQUAD IS COMING SOON</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-card" id="card4">
+                    <img src="./images/siang_sharks-removebg.png" alt="Siang Sharks Logo">
+                    <div class="description">
+                        <p>THE SQUAD IS COMING SOON</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-card" id="card5">
+                    <img src="./images/kamle_cobras-removebg.png" alt="Kamle Cobras Logo">
+                    <div class="description">
+                        <p>THE SQUAD IS COMING SOON</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-card" id="card6">
+                    <img src="./images/tawang new.png" alt="Tawang Logo">
+                    <div class="description">
+                        <p>THE SQUAD IS COMING SOON</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container hero-section">
+        <h1>Season 2: #LeagueOfTalent</h1>
+        <p>Join us as we showcase the most talented teams and players in Arunachal Premier League's exciting second season!</p>
+    </div>
+    <div class="container highlights-section">
+        <h3>Season Highlights</h3>
+        <div class="highlight-container">
+            <div class="highlight-item">
+                <iframe width="260" height="215" src="https://www.youtube.com/embed/-HdRRHhuppg?si=NSa4quZDpf1O59FT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <p>Match 1 - Goal by Player 1</p>
+            </div>
+            <div class="highlight-item">
+                <iframe width="260" height="215" src="https://www.youtube.com/embed/g13PBRJqEGA?si=u7Ykw3Au6tHJuLGB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <p>Match 2 - Stunning Save</p>
+            </div>
+            <div class="highlight-item">
+                <iframe width="260" height="215" src="https://www.youtube.com/embed/YiQ8DqS3_UI?si=gS8mAN2YSPQiylZO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <p>Match 3 - Amazing Goal</p>
+            </div>
+            <div class="highlight-item">
+                <iframe width="260" height="215" src="https://www.youtube.com/embed/M35kraZzAs8?si=OcfGOQe7Uly4bnVD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <p>Match 4 - Final Victory</p>
+            </div>
+        </div>
+    </div>
+      
+     <div class="demo-row">
+      <div class="container" id="id-sponsors">
+          <div class="text-center">
+              <h2 style="margin:20px 0;color:#fff;"><u><b>Our Sponsors</b></u></h2>
+          </div>
+          <div id="sponsor-carousel" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="hover">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                  <li data-target="#sponsor-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#sponsor-carousel" data-slide-to="1"></li>
+              </ol>
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                  <div class="carousel-item active">
+                      <div class="d-flex justify-content-center">
+                          <div class="row">
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/jhsportslogo.jpg" /></div>
+                              </div>
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/fancodelogo.jpg" /></div>
+                              </div>
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/soultatva.jpg" /></div>
+                              </div>
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/SGIlogo.png" /></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <div class="d-flex justify-content-center">
+                          <div class="row">
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/cropped-Artboaboardlogo.png"></div>
+                              </div>
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/acalogos.jpg" /></div>
+                              </div>
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/jhsportslogo.jpg" /></div>
+                              </div>
+                              <div class="col-6 col-sm-3 d-flex justify-content-center">
+                                  <div class="sponsor-feature"><img alt="" src="./images/fancodelogo.jpg" /></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- Controls -->
+              <a class="carousel-control-prev" href="#sponsor-carousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#sponsor-carousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+              </a>
+          </div>
+      </div>
+     </div>
+
+        <!-- footer -->
+        <div class="container-fluids">
+            <div class="container-fluids footer">
+              <div class="container-fluids ">
+                <div class="d-flex justify-content-center align-items-center">
+                  <img src="./images/organiserlogo.jpg" alt="Logo" class="logo img-fluid rounded-circle mt-2 me-3 max-height2" />
+                  <div class="vertical-line mx-1"></div>
+                  <img src="./images/APL_LOGO.png" alt="Logo" class="logo img-fluid me-3 mt-2" />
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center social-media-icons m-4">
+                <span class="ms-3 p-2">
+                  <a href="https://www.facebook.com/Arunachalca/" target="_blank">
+                    <i class="fab fa-facebook iconsfb"></i>
+                  </a>
+                </span>
+                <span class="ms-3">
+                  <a href="https://www.instagram.com/aplt20_arunachalpremierleague/" target="_blank">
+                    <i class="fa-brands fa-square-instagram"></i>
+                  </a>
+                </span>
+                <span class="ms-3">
+                  <a href="https://twitter.com/" target="_blank">
+                    <i class="fa-brands fa-square-twitter"></i>
+                  </a>
+                </span>
+                <span class="ms-3">
+                  <a href="https://www.youtube.com/embed/7Pm7O-wA1jw?si=eapZzM6WdWN2jWe8" target="_blank">
+                    <i class="fa-brands fa-square-youtube"></i>
+                  </a>
+                </span>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mt-2">
+                  <h4 style="font-weight: 600; margin-left: 35px;">QUICKLINKS</h4>
+                  <div class="container">
+                    <ul>
+                      <li><a href="./index.html"><span class="px-2">&#x2B9E;</span>HOME</a></li>
+                      <li><a href="./about.html"><span class="px-2">&#x2B9E;</span>ABOUT US</a></li>
+                      <li><a href="./gallery.html"><span class="px-2">&#x2B9E;</span>GALLERY</a></li>
+                      <li><a href="./team.html"><span class="px-2">&#x2B9E;</span>TEAM</a></li>
+                      <li><a href="./news.html"><span class="px-2">&#x2B9E;</span>NEWS</a></li>
+                      <li><a href="./contact.html"><span class="px-2">&#x2B9E;</span>CONTACT US</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h4 style="font-weight: 600; margin-left: 35px;">TEAMS</h4>
+                  <div class="container">
+                    <ul>
+                      <li><a href=""><span class="px-2">&#x2B9E;</span>Dirang Dragens</a></li>
+                      <li><a href=""><span class="px-2">&#x2B9E;</span>Kamle Cobras</a></li>
+                      <li><a href=""><span class="px-2">&#x2B9E;</span>Pare Warriors</a></li>
+                      <li><a href=""><span class="px-2">&#x2B9E;</span>Siang</a></li>
+                      <li><a href=""><span class="px-2">&#x2B9E;</span>Tigers</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h4 style="font-weight: 600; margin-left: 25px;">GET IN TOUCH</h4>
+                  <br>
+                  <div class="container">
+                    <ul>
+                        <li class="mb-2">
+                            <a href="#" class="text-white"><span class="me-2 ">
+                            <i class="fa-solid fa-address-card"></i>
+                              <a href="./contact.html" class="fs-6 contactInfo">Contact Us</a>
+                            </span></a>
+                        </li>
+                      
+                      <li>
+                        <a href="#" class="text-white"><span class="me-2">
+                          <i class="fas fa-phone-volume iconsfb"></i>
+                          <a href="tel:+918081182885" class="fs-6 contactInfo">+91 8329010625</a>
+                        </span></a>
+                        </li>
+                        <li class="mt-3">
+                          <a href="#" class="text-white"><span class="me-2">
+                            <i class="fas fa-envelope iconsfb"></i>
+                            <a href="mailto:info@SportsKavach.com" class="fs-6 contactInfo">Info@aplt20.live
+                            </a>
+                          </span></a>
+                          </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+            <div class="container-fluid bottomfooter mb-1">
+                <span class="custom-bold text-center d-block" style="font-size: 1rem;">@&nbsp;2024Aplt20.live&nbsp; All Rights Reserved</span>
+                <div class="d-flex align-items-center justify-content-center">
+                  
+                  <span class="custom-bold text-center ms-2" style="font-size: 1rem;">Developed By</span>
+                  <img src="./images/noxetlogo.jpg" alt="" class="img-fluid max-height ms-2 rounded">
+                </div>
+              </div>
+            
+        </div>  
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script>
+      var menuIcon = document.getElementById('manuIcon');
+
+      menuIcon.addEventListener('click', function() {
+        // Toggle between the menu icon and the cross icon
+        if (menuIcon.classList.contains('fa-stream')) {
+          menuIcon.classList.remove('fa-stream');
+          menuIcon.classList.add('fa-times');
+        } else {
+          menuIcon.classList.remove('fa-times');
+          menuIcon.classList.add('fa-stream');
+        }
+      });
+
+      $('#sponsor-carousel').carousel({
+            interval: 3000, // Slide every 3 seconds
+            wrap: true,     // Loop around from last to first
+            pause: false    // Don't pause on hover
+        });
+
+
+
+    </script>
+  </body>
+</html>
